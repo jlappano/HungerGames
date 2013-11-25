@@ -1,0 +1,3 @@
+class Tribute < Citizen
+
+end
