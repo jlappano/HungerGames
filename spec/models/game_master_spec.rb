@@ -7,7 +7,6 @@ describe GameMaster do
     #one male, one female
     #ages 12 - 18
   #it assigns a game_id
-  #assigns an escort
   #assigns a rating
   #adds sponsors
 
@@ -87,13 +86,13 @@ describe GameMaster do
 
     let(:game) {gameMaker.game}
 
-    it "asigns sponsorships to each tribute" do
+    it "assigns sponsorships to each tribute" do
 
       gameMaker.choose_tributes
+      gameMaker.get_sponsors
       
-      expect(game.tributes[0].sponsorships.empty?).to_not be_true
-      expect(game.tributes[1].sponsorships.empty?).to_not be_true
-      
+      expect(game.tributes[0].sponsorships.empty?).to be_false
+      expect(game.tributes[1].sponsorships.empty?).to be_false
     end
   end
 end
