@@ -61,6 +61,10 @@ describe GameMaster do
     end
 
     it "assigns a rating randomly to each tribute" do
+      gameMaker.choose_tributes
+      expect(game.tributes[0].rating).to_not be(nil)
+      expect(game.tributes[1].rating).to_not be(nil)
+
     end
   end
 
