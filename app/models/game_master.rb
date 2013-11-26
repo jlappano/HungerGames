@@ -26,13 +26,12 @@ class GameMaster
       m_tribute.save
       m_tribute = m_tribute.becomes! Tribute
     @tributes = [f_tribute, m_tribute]
-      binding.pry
   end
 
   def get_sponsors 
     @sponsors = Citizen.where(type: "Sponsor")
     @tributes.each do |tribute|
-      tribute.sponsorships = Sponsorships.create(sponsor_id: @sponsors.sample(1), tribute_id: f_tribute.id)
+      tribute.sponsorships << Sponsorship.create(sponsor_id: @sponsors.sample(1)[0].id, tribute_id: tribute.id)
     end
   end
 end
