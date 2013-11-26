@@ -6,3 +6,5 @@ class CreateSponsership < ActiveRecord::Migration
     end
   end
 end
+
+
