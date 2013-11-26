@@ -22,6 +22,7 @@ describe GameMaster do
 
     #it chooses randomly two citizens 
 
+  #it chooses two tributes per district
   describe '#choose_tributes' do
     before do 
       mihran = Citizen.create(name:"Mihran Abrahamian", age: 15, gender: "m", district_id:1)
@@ -87,7 +88,7 @@ describe GameMaster do
     let(:game) {gameMaker.game}
 
     it "assigns sponsorships to each tribute" do
-
+    #it assigns a random amount of sponsorships per tribute
       gameMaker.choose_tributes
       gameMaker.get_sponsors
       
