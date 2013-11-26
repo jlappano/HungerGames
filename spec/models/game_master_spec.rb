@@ -91,8 +91,8 @@ describe GameMaster do
 
       gameMaker.choose_tributes
       
-      expect(game.tributes[0].sponsorships).to_not be(nil)
-      expect(game.tributes[1].sponsorships).to_not be(nil)
+      expect(game.tributes[0].sponsorships.empty?).to_not be_true
+      expect(game.tributes[1].sponsorships.empty?).to_not be_true
       
     end
   end
