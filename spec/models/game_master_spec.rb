@@ -14,16 +14,18 @@ describe GameMaster do
     
     let(:game) {gameMaker.game}
     
-
     before do 
-      mihran = Citizen.create(name:"Mihran Abrahamian", age: 15, gender: "m", district_id:1)
-      julie = Citizen.create(name:"Julie Lappano", age: 12, gender:"f", district_id:2)
-      raleigh = Citizen.create(name:"Raleigh Foeber", age: 16, gender:"f", district_id:14)
-      tom = Citizen.create(name:"Tom Brennan", age: 16, gender:"m", district_id:15)
-      harry = Citizen.create(name:"Harry Potter", age: 12, gender:"m", district_id:16)
-      pj = Citizen.create(name:"PJ hughes", age: 30, gender:"m", district_id:2)
-      frank = Citizen.create(name:"Frank Baum", age: 52, gender:"m", district_id:2)
-      jeff = Citizen.create(name:"Jeff Baum", age: 8, gender:"m", district_id:4)
+      (1..12).to_a.each do |x|
+        10.times { FactoryGirl.create(:citizen, name: Faker::Name.name, age: (12..18).to_a.sample, district_id: x) }
+      end
+      # mihran = Citizen.create(name:"Mihran Abrahamian", age: 15, gender: "m", district_id:1)
+      # julie = Citizen.create(name:"Julie Lappano", age: 12, gender:"f", district_id:2)
+      # raleigh = Citizen.create(name:"Raleigh Foeber", age: 16, gender:"f", district_id:14)
+      # tom = Citizen.create(name:"Tom Brennan", age: 16, gender:"m", district_id:15)
+      # harry = Citizen.create(name:"Harry Potter", age: 12, gender:"m", district_id:16)
+      # pj = Citizen.create(name:"PJ hughes", age: 30, gender:"m", district_id:2)
+      # frank = Citizen.create(name:"Frank Baum", age: 52, gender:"m", district_id:2)
+      # jeff = Citizen.create(name:"Jeff Baum", age: 8, gender:"m", district_id:4)
       gameMaker.choose_tributes
     end
 
@@ -56,10 +58,11 @@ describe GameMaster do
       describe '#get_sponsors' do
 
         before do 
-          sponsor_1 = Citizen.create(name:"Rich Uncle Phil", type: "Sponsor", district_id:4)
-          sponsor_2 = Citizen.create(name:"Rich Uncle Doug", type: "Sponsor", district_id:2)
-          sponsor_3 = Citizen.create(name:"Rich Aunt Bedelia", type: "Sponsor", district_id:1)
-          sponsor_4 = Citizen.create(name:"Rich Aunt Peggy", type: "Sponsor", district_id:1)
+          10.times { FactoryGirl.create(:citizen, name: Faker::Name.name, age: (18..90).to_a.sample, type: "Sponsor") }
+          # sponsor_1 = Citizen.create(name:"Rich Uncle Phil", type: "Sponsor", district_id:4)
+          # sponsor_2 = Citizen.create(name:"Rich Uncle Doug", type: "Sponsor", district_id:2)
+          # sponsor_3 = Citizen.create(name:"Rich Aunt Bedelia", type: "Sponsor", district_id:1)
+          # sponsor_4 = Citizen.create(name:"Rich Aunt Peggy", type: "Sponsor", district_id:1)
         end 
 
         it "assigns sponsorships to each tribute" do
