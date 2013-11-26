@@ -7,15 +7,20 @@ class GameMaster
     @game
   end
 
-  def choose_tributes
+  def reap
+
+  (1..12).to_a.each do |id|
+    id = id 
     ["m", "f"].each do |x|
-      tribute = Citizen.where(district_id: (1..12).to_a, gender: x, age: (12..18).to_a).sample(1)[0]
+      tribute = Citizen.where(district_id: id, gender: x, age: (12..18).to_a).sample(1)[0]
       tribute.type = "Tribute"
       tribute.game_id = self.game.id
       tribute.rating = (1..12).to_a.sample
       tribute.save
       tribute = tribute.becomes Tribute
-    end  
+    end
+  end
+
   end
 
   def get_sponsors 
