@@ -23,5 +23,13 @@ class GameMaster
       m_tribute.game_id = self.game_id
       m_tribute.rating = (1..12).to_a.sample
       m_tribute.save
+    @tributes = [f_tribute, m_tribute]
+  end
+
+  def get_sponsors 
+    @sponsors = Citizen.where(type: "Sponsor")
+    @tributes.each do |tribute|
+      tribute.sponsorships = Sponsorships.create(sponsor_id: @sponsors.sample(1), tribute_id: f_tribute.id)
+    end
   end
 end

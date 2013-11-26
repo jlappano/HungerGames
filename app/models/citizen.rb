@@ -1,3 +1,2 @@
-class Citizen < ActiveRecord::Base
-  
+class Citizen < ActiveRecord::Base  
 end
