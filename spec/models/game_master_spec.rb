@@ -39,7 +39,6 @@ describe GameMaster do
       it "asigns a rating randomly to each tribute" do
         # expect(game.tributes[0].rating).to_not be(nil)
         # expect(game.tributes[1].rating).to_not be(nil)
-        binding.pry
         expect((game.tributes.map {|tribute| tribute.rating}).include?(0)).to be_false
       end
 
@@ -55,8 +54,10 @@ describe GameMaster do
 
         it "assigns sponsorships to each tribute" do
           gameMaker.get_sponsors
-          expect(game.tributes[0].sponsorships.count).to be <= 3 
-          expect(game.tributes[1].sponsorships.count).to be <= 3
+          binding.pry
+          expect((game.tributes.map {|tribute| tribute.sponsorships.count}).uniq).to match_array [0,1,2,3]          
+          # expect(game.tributes[0].sponsorships.count).to be <= 3 
+          # expect(game.tributes[1].sponsorships.count).to be <= 3
         end
       end
     end

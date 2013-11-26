@@ -10,7 +10,6 @@ class GameMaster
   def reap
 
   (1..12).to_a.each do |id|
-    id = id 
     ["m", "f"].each do |x|
       tribute = Citizen.where(district_id: id, gender: x, age: (12..18).to_a).sample(1)[0]
       tribute.type = "Tribute"
@@ -25,8 +24,12 @@ class GameMaster
 
   def get_sponsors 
     @sponsors = Citizen.where(type: "Sponsor")
+
+
     game.tributes.each do |tribute|
-      tribute.sponsorships << Sponsorship.create(sponsor_id: @sponsors.sample(1)[0].id, tribute_id: tribute.id)
+      num = (0..3).to_a.sample
+
+      num.times {tribute.sponsorships << Sponsorship.create(sponsor_id: @sponsors.sample(1)[0].id, tribute_id: tribute.id)}
     end
   end
 end
