@@ -1,62 +1,74 @@
 class Game < ActiveRecord::Base
+
   has_many :tributes
   has_many :citizens
-  has_many :rounds
- 
+  has_many :rounds 
 
   def create_round
     round = Round.create(game_id: self.id)
     round.citizens << self.citizens.where(alive: true)
     if self.citizens.where(alive: true).count > 3
-      kill_half!
+      get_into_pairs
     else
-      three_left
+      fourth_round
     end 
   end
 
-  def kill_half!
-    tributes_left = self.tributes.where(alive: true)
-    shuffled_tributes_left = tributes_left.shuffle
-    tributes_a = []
-    tributes_b = []    
+  def live_tributes
+    self.citizens.where(alive: true)
+  end
+
+  def get_into_pairs
+    shuffled_tributes_left = live_tributes.shuffle
+    @tributes_a = []
+    @tributes_b = []    
 
     shuffled_tributes_left.each_with_index do |tribute, i|
       ##odds go into A, evens go into B##
       if i % 2 != 0 
-        tributes_a << tribute
+        @tributes_a << tribute
       else
-        tributes_b << tribute
+        @tributes_b << tribute
       end    
     end
+    fight_to_the_death!
+  end
 
+  def fight_to_the_death!
     i = 0
-    tributes_a.count.times do
-      a=tributes_a[i]
-      b=tributes_b[i]
+    @tributes_a.count.times do
+      a=@tributes_a[i]
+      b=@tributes_b[i]
 
-        if a.rating > b.rating
+      if a.rating > b.rating
+        b.alive = false
+      elsif b.rating > a.rating
+        a.alive = false
+      elsif (a.rating == b.rating) 
+        if (a.sponsors.count> b.sponsors.count)
           b.alive = false
-          b.save
-        elsif b.rating > a.rating
+        elsif (b.sponsors.count> a.sponsors.count)
           a.alive = false
-          a.save
-        else
-          false
+        elsif (a.sponsors.count == b.sponsors.count)
+          if a.district_id == b.district_id
+            male = Tribute.where(district_id: a.district_id, gender:"m")
+            male.alive = false
+            male.save
+          elsif a.district_id > b.district_id
+            a.alive = false
+          elsif b.district_id > a.district_id
+            b.alive = false
+          end
         end
-      i++
-
-      binding.pry
+      end
+      a.save
+      b.save
+      i+=1      
     end
+  end
 
-    # self.tributes.where(alive: true).sample(self.tributes.where(alive:true).count/2).each do |tribute| 
-    #   tribute.alive = false
-    #   tribute.save
+  def fourth_round
 
   end
 
-  def three_left
-    print "Three left!"
-  end
-
-
-end 
+end
