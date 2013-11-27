@@ -47,18 +47,18 @@ describe Game do
   end
 
 
-  describe "#Kill_half!" do
+  # describe "#Kill_half!" do
 
-    #it pairs the tributes together randomly 
+  #   #it pairs the tributes together randomly 
 
-    #it compares the ratings of both tributes
+  #   #it compares the ratings of both tributes
 
-    #IF TIE compares the num of sponsors
+  #   #IF TIE compares the num of sponsors
 
-    #IF TIE lower num disctrict survives
+  #   #IF TIE lower num disctrict survives
 
-    #IF TIE female survives
+  #   #IF TIE female survives
 
-  end
+  # end
 
 end
