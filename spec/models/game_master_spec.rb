@@ -8,6 +8,7 @@ describe GameMaster do
     it "creates the game" do 
       expect(gameMaker.game).to_not eq(nil)
     end
+
   end
 
   context 'choosing tributes and sponsors' do 
@@ -15,8 +16,8 @@ describe GameMaster do
     let(:game) {gameMaker.game}
     
     before do 
-      (1..13).to_a.each do |x|
-        10.times { FactoryGirl.create(:citizen, name: Faker::Name.name, age: (12..19).to_a.sample, district_id: x) }
+      (1..12).to_a.each do |x|
+        10.times { FactoryGirl.create(:citizen, name: Faker::Name.name, age: (12..18).to_a.sample, district_id: x) }
       end
       gameMaker.reap
     end
@@ -46,7 +47,7 @@ describe GameMaster do
         expect(game.tributes.length).to eq(24)
       end
 
-      describe '#get_sponsors' do
+    describe '#get_sponsors' do
 
         before do 
           10.times { FactoryGirl.create(:citizen, name: Faker::Name.name, age: (18..90).to_a.sample, type: "Sponsor") }
@@ -54,10 +55,7 @@ describe GameMaster do
 
         it "assigns sponsorships to each tribute" do
           gameMaker.get_sponsors
-          binding.pry
           expect((game.tributes.map {|tribute| tribute.sponsorships.count}).uniq).to match_array [0,1,2,3]          
-          # expect(game.tributes[0].sponsorships.count).to be <= 3 
-          # expect(game.tributes[1].sponsorships.count).to be <= 3
         end
       end
     end

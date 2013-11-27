@@ -3,6 +3,7 @@ class GameMaster
     @game = Game.create(name: param)
   end
 
+
   def game
     @game
   end
