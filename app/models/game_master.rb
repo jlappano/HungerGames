@@ -1,3 +1,4 @@
+#can reap and get sponsors
 class GameMaster
   def initialize(param)
     @game = Game.create(name: param)

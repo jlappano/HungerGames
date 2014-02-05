@@ -30,6 +30,7 @@ class Game < ActiveRecord::Base
     end
 
     i = 0
+    
     tributes_a.count.times do
       a=tributes_a[i]
       b=tributes_b[i]
@@ -45,7 +46,6 @@ class Game < ActiveRecord::Base
         end
       i++
 
-      binding.pry
     end
 
     # self.tributes.where(alive: true).sample(self.tributes.where(alive:true).count/2).each do |tribute| 
