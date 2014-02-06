@@ -88,7 +88,7 @@ class Game < ActiveRecord::Base
   def game_winner
     winner = self.citizens.where(alive: true)[0]
     victor = winner.becomes Victor 
-    binding.pry   
+    puts "The victor is #{victor.name} from disctrict #{victor.district_id}!"
   end
 
 
