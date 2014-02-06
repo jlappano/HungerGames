@@ -2,7 +2,13 @@
   <h1>Welcome to the Hunger Games</h1>
   <p>Each year 24 children across Panem are entered in to the Hunger Games. Please enjoy this year's reaping.</p>
 
-  <%= submit_tag "reap" %>
+  <%= form_tag game_round_path, :method => :show do %>
+  <!-- = text_field_tag :search, params[:search].to_s.upcase %> -->
+   <%= submit_tag "reap" %>
+
+
+<% end %>
+
 
 
 </div>
