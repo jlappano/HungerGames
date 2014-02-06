@@ -7,16 +7,15 @@ class Game < ActiveRecord::Base
   def create_round
     round = Round.create(game_id: self.id)
     round.citizens << self.citizens.where(alive: true)
-    if self.citizens.where(alive: true).count > 3
-      self.kill_half!
+    if round.citizens.count > 3
+      self.kill_half!(round.citizens)
     else
-      self.three_left
+      self.three_left(round.citizens)
     end 
   end
 
-  def kill_half!
-    tributes_left = self.tributes.where(alive: true)
-    shuffled_tributes_left = tributes_left.shuffle
+  def kill_half!(tributes)
+    shuffled_tributes_left = tributes.shuffle
     tributes_a = []
     tributes_b = []    
 
@@ -34,11 +33,12 @@ class Game < ActiveRecord::Base
       b=tributes_b[i]
       self.rating_battle(a, b)
     }
-
   end
 
-  def three_left
-    print "Three left!"
+  def three_left(tributes)
+    self.sponsor_battle(tributes[0], tributes[1])
+    self.sponsor_battle(tributes[1], tributes[2])
+    self.sponsor_battle(tributes[0], tributes[2])
   end
 
   def rating_battle(a, b)
@@ -58,6 +58,18 @@ class Game < ActiveRecord::Base
       b.alive = false
       b.save
     elsif a.sponsorships.count < b.sponsorships.count
+      a.alive = false
+      a.save
+    else
+      self.district_battle(a, b)
+    end
+  end
+
+  def district_battle(a, b)
+    if a.district_id < b.district_id
+      b.alive = false
+      b.save
+    elsif a.district_id > b.district_id
       a.alive = false
       a.save
     else

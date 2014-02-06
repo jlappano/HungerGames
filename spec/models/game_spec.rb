@@ -48,21 +48,17 @@ describe Game do
 
 
   describe "#Kill_half!" do
-
     it "kills half the remaining tributes" do
-      game.kill_half! 
+      game.kill_half!(game.citizens.where(alive: true)) 
       expect(game.citizens.where(alive: true).count).to eq(12)   
     end
-    #it pairs the tributes together randomly 
+  end
 
-    #it compares the ratings of both tributes
-
-    #IF TIE compares the num of sponsors
-
-    #IF TIE lower num disctrict survives
-
-    #IF TIE female survives
-
+  describe "#three_left" do
+    it "only produces one survivor" do
+      4.times {game.create_round}
+      expect(game.citizens.where(alive: true).count).to eq(1)
+    end
   end
 
 end
