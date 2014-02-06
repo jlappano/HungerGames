@@ -42,6 +42,8 @@ group :test, :development do
   gem 'pry-rails'
   gem 'ffaker'
   gem 'factory_girl_rails'
+  gem 'capybara'
+  gem 'selenium-webdriver'
 end
 
 group :test do
