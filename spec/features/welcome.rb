@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'a user can choose between signup & login', js: true do 
+describe 'welcome page', js: true do 
   it 'welcomes the user' do 
     visit '/'
     expect(page).to have_content 'Welcome to the Hunger Games'
