@@ -49,6 +49,10 @@ describe Game do
 
   describe "#Kill_half!" do
 
+    it "kills half the remaining tributes" do
+      game.kill_half! 
+      expect(game.citizens.where(alive: true).count).to eq(12)   
+    end
     #it pairs the tributes together randomly 
 
     #it compares the ratings of both tributes

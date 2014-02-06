@@ -8,9 +8,9 @@ class Game < ActiveRecord::Base
     round = Round.create(game_id: self.id)
     round.citizens << self.citizens.where(alive: true)
     if self.citizens.where(alive: true).count > 3
-      kill_half!
+      self.kill_half!
     else
-      three_left
+      self.three_left
     end 
   end
 
@@ -28,34 +28,48 @@ class Game < ActiveRecord::Base
         tributes_b << tribute
       end    
     end
-
-    i = 0
-    
-    tributes_a.count.times do
+   
+    tributes_a.count.times { |i|
       a=tributes_a[i]
       b=tributes_b[i]
-
-        if a.rating > b.rating
-          b.alive = false
-          b.save
-        elsif b.rating > a.rating
-          a.alive = false
-          a.save
-        else
-          false
-        end
-      i++
-
-    end
-
-    # self.tributes.where(alive: true).sample(self.tributes.where(alive:true).count/2).each do |tribute| 
-    #   tribute.alive = false
-    #   tribute.save
+      self.rating_battle(a, b)
+    }
 
   end
 
   def three_left
     print "Three left!"
+  end
+
+  def rating_battle(a, b)
+    if a.rating > b.rating
+      b.alive = false
+      b.save
+    elsif b.rating > a.rating
+      a.alive = false
+      a.save
+    else
+      self.sponsor_battle(a, b)
+    end
+  end
+
+  def sponsor_battle(a, b)
+    if a.sponsorships.count > b.sponsorships.count
+      b.alive = false
+      b.save
+    elsif a.sponsorships.count < b.sponsorships.count
+      a.alive = false
+      a.save
+    else
+      self.gender_battle(a, b)
+    end
+  end
+
+  def gender_battle(a, b)
+    if a.gender == "f"
+      b.alive = false
+      b.save
+    end
   end
 
 
