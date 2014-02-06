@@ -39,6 +39,7 @@ class Game < ActiveRecord::Base
     self.sponsor_battle(tributes[0], tributes[1])
     self.sponsor_battle(tributes[1], tributes[2])
     self.sponsor_battle(tributes[0], tributes[2])
+    self.game_winner
   end
 
   def rating_battle(a, b)
@@ -82,6 +83,12 @@ class Game < ActiveRecord::Base
       b.alive = false
       b.save
     end
+  end
+
+  def game_winner
+    winner = self.citizens.where(alive: true)[0]
+    victor = winner.becomes Victor 
+    binding.pry   
   end
 
 

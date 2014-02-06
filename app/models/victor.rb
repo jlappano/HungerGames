@@ -1,0 +1,3 @@
+class Victor < Tribute
+
+end
