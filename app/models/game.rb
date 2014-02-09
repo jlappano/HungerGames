@@ -1,8 +1,8 @@
 class Game < ActiveRecord::Base
+
   has_many :tributes
   has_many :citizens
-  has_many :rounds
- 
+  has_many :rounds 
 
   def create_round
     round = Round.create(game_id: self.id)
@@ -18,13 +18,13 @@ class Game < ActiveRecord::Base
     shuffled_tributes_left = tributes.shuffle
     tributes_a = []
     tributes_b = []    
-
+  
     shuffled_tributes_left.each_with_index do |tribute, i|
       ##odds go into A, evens go into B##
       if i % 2 != 0 
-        tributes_a << tribute
+        @tributes_a << tribute
       else
-        tributes_b << tribute
+        @tributes_b << tribute
       end    
     end
    
@@ -92,4 +92,4 @@ class Game < ActiveRecord::Base
   end
 
 
-end 
+end

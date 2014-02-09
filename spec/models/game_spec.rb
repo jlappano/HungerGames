@@ -47,6 +47,7 @@ describe Game do
   end
 
 
+
   describe "#Kill_half!" do
     it "kills half the remaining tributes" do
       game.kill_half!(game.citizens.where(alive: true)) 
@@ -60,6 +61,7 @@ describe Game do
       expect(game.citizens.where(alive: true).count).to eq(1)
     end
   end
+
 
 
 end
